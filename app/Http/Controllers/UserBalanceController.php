@@ -6,27 +6,37 @@ use App\Http\Requests\CreateBalanceRequest;
 use App\Models\UserBalance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class UserBalanceController extends Controller
 {
     public function store(CreateBalanceRequest $request)
-{
-
-    if(Auth::user()->balance){
-        return response()->json(['success' => false, 'message' => 'Balance already exists.']);
-    }
-    
-        $request->validated();
-
-        UserBalance::create([
-            'user_id' => auth()->id(),
-            'amount' => $request->input('amount'),
-        ]);
-
-        if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 'Balance created successfully.']);
+    {
+        if(Auth::user()->balance){
+            return response()->json(['success' => false, 'message' => 'Balance already exists.']);
         }
 
-        return redirect()->route('dashboard')->with('success', 'Balance created successfully.');
+        try {
+            $userBalance = UserBalance::create([
+                'user_id' => auth()->id(),
+                'amount' => $request->amount
+            ]);
+
+            if (!$userBalance) {
+                throw ValidationException::withMessages(['error' => 'Failed to create balance.']);
+            }
+
+            if ($request->ajax()) {
+                return response()->json(['success' => true, 'message' => 'Balance created successfully.']);
+            }
+
+            return redirect()->route('dashboard')->with('success', 'Balance created successfully.');
+        } catch(ValidationException $e){
+            if ($request->ajax()){
+                return response()->json(['success' => false, 'errors' => $e->errors()], 422);
+            }
+
+            return redirect()->back()->withErrors('Something went wrong.')->withInput();
+        }
     }
 }

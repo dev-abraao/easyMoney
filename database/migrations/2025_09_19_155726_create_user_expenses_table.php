@@ -15,9 +15,9 @@ return new class extends Migration
             $table->Uuid('id')->primary();;
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('expense_type_id')->constrained('expense_types')->onDelete('cascade');
-            $table->string('description');
+            $table->string('description')->nullable();;
             $table->decimal('amount', 19, 2);
-            $table->date('date');
+            $table->date('date')->default(now());
             $table->timestamps();
         });
     }
