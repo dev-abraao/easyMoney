@@ -9,7 +9,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 
 
-class AuthController
+class AuthController extends Controller
 {
     public function register(RegisterRequest $request){
         if ($request->validated()){

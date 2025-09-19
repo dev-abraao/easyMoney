@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UserExpense;
 use Illuminate\Http\Request;
 
-class UserExpenseController
+class UserExpenseController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -9,6 +9,11 @@ class UserBalance extends Model
     use HasUuids;
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'user_id',
+        'amount',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

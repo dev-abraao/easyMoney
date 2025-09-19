@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('expense_type_id')->constrained('expense_types')->onDelete('cascade');
             $table->string('description');
-            $table->decimal('amount', 19, 4);
+            $table->decimal('amount', 19, 2);
             $table->date('date');
             $table->timestamps();
         });
