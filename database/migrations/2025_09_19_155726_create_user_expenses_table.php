@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('expense_type_id')->constrained('expense_types')->onDelete('cascade');
             $table->string('description')->nullable();;
             $table->decimal('amount', 19, 2);
+            $table->foreignUuid('card_id')->nullable()->constrained('cards')->onDelete('set null');
             $table->date('date')->default(now());
             $table->timestamps();
         });
