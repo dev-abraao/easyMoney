@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserBalanceController;
 use App\Http\Controllers\UserExpenseController;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::view('/dashboard', 'dashboard')->name('dashboard')->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::post('/user-balance', [UserBalanceController::class, 'store'])->name('user.balance.store');
 
 Route::post('/user-expense', [UserExpenseController::class, 'store'])->name('user.expense.store');

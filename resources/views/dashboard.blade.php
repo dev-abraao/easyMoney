@@ -13,7 +13,7 @@
             <p >Balance:<span id="balance-amount"></span></p>
         @endif
         <button onclick="openExpenseModal()">+</button>
-        <x-create-expense-modal/>
+        <x-create-expense-modal :expense-types="$expenseTypes"/>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit">Logout</button>
