@@ -12,21 +12,20 @@ use App\Http\Requests\LoginRequest;
 class AuthController extends Controller
 {
     public function register(RegisterRequest $request){
-        if ($request->validated()){
-            User::create([
+            $user = User::create([
                 'email' => $request->email,
                 'name' => $request->name,
                 'password' => bcrypt($request->password),
             ]);
 
-            return redirect()->route('login.view')->with('success', 'Usuário cadastrado com sucesso!');
-        }
+            if ($user) {
+                return redirect()->route('login.view')->with('success', 'User registered successfully!');
+            }
 
-        return redirect()->back()->with('errors', 'Erro ao cadastrar usuário.');
+
+        return redirect()->back()->withErrors(['auth' => 'Error registering user try again later.'])->withInput();
     }
     public function login(LoginRequest $request){
-        if ($request->validated()){
-
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
@@ -35,10 +34,7 @@ class AuthController extends Controller
                 return redirect()->intended(route('dashboard'));
             }
 
-            return redirect()->back()->with('errors', 'E-mail ou senha incorretos.');
-        }
-
-        return redirect()->back()->with('errors', 'Erro ao validar credenciais.');
+            return redirect()->back()->withErrors(['auth' => 'Incorrect email or password.'])->withInput();
     }
     public function logout(Request $request){
 
