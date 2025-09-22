@@ -45,7 +45,7 @@ document.getElementById('balance-form').addEventListener('submit', function(e) {
     .then(data => {
         if (data.success) {
             amountInput.value = parseFloat(amountInput.value).toFixed(2);
-            balanceDisplay.textContent = `Balance: ${amountInput.value}$`;
+            balanceDisplay.textContent = `${amountInput.value}$`;
             modal.style.opacity = '0';
             setTimeout(() => {
                 modal.remove();

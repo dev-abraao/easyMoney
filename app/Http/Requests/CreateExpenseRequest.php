@@ -22,7 +22,6 @@ class CreateExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:users,id'],
             'expense_type_id' => ['required', 'exists:expense_types,id'],
             'description' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric', 'min:0.01'],

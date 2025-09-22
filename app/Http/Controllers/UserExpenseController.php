@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateExpenseRequest;
 use App\Models\UserExpense;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class UserExpenseController extends Controller
 {
@@ -32,18 +34,22 @@ class UserExpenseController extends Controller
     {
         try {
             $validated = $request->validated();
+            $validated['user_id'] = auth()->id();
+            $userBalance = auth()->user()->balance;
 
-            $expense = UserExpense::create($validated);
-
-            if($expense){
-               $userBalance = $expense->user->balance;
-                if($userBalance && $userBalance->amount >= $expense->amount) {
-                    $userBalance->amount -= $expense->amount;
-                    $userBalance->save();
-                } else {
-                    throw ValidationException::withMessages(['error' => 'Insufficient balance to cover this expense.']);
-                }
+            if (!$userBalance) {
+                throw ValidationException::withMessages(['error' => 'User has no balance available.']);
             }
+
+            if ($validated['amount'] > $userBalance->amount) {
+                throw ValidationException::withMessages(['error' => 'Insufficient balance to cover this expense.']);
+            }
+            $expense = DB::transaction(function () use ($validated, $userBalance) {
+                $expense = UserExpense::create($validated);
+                $userBalance->amount -= $expense->amount;
+                $userBalance->save();
+                return $expense;
+            });
 
             if ($request->ajax()){
                 return response()->json(['success' => true, 'message' => 'Expense created successfully.', 'data' => $expense], 201);
@@ -54,6 +60,11 @@ class UserExpenseController extends Controller
         } catch (ValidationException $e) {
             if ($request->ajax()){
                 return response()->json(['success' => false, 'errors' => $e->errors()], 422);
+            }
+            return redirect()->back()->with('error', 'Something went wrong.')->withInput();
+        } catch (Throwable $e) {
+            if ($request->ajax()){
+                return response()->json(['success' => false, 'errors' => 'An unexpected error occurred. Please try again later.'], 500);
             }
             return redirect()->back()->with('error', 'Something went wrong.')->withInput();
         }
