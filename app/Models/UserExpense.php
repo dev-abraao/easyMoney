@@ -12,6 +12,15 @@ class UserExpense extends Model
 
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'user_id',
+        'expense_type_id',
+        'description',
+        'amount',
+        'card_id',
+        'date',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

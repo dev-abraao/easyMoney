@@ -22,10 +22,12 @@ class CreateExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id' => ['required', 'exists:users,id'],
+            'expense_type_id' => ['required', 'exists:expense_types,id'],
             'description' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric', 'min:0.01'],
+            'card_id' => ['nullable', 'exists:cards,id'],
             'date' => ['required', 'date'],
-            'expense_type_id' => ['required', 'exists:expense_types,id'],
         ];
     }
     public function messages(): array
@@ -41,6 +43,7 @@ class CreateExpenseRequest extends FormRequest
             'date.date' => 'Invalid date format.',
             'expense_type_id.required' => 'Please select an expense type.',
             'expense_type_id.exists' => 'Selected expense type is invalid.',
+            'card_id.exists' => 'Selected card is invalid.',
         ];
     }
 }
