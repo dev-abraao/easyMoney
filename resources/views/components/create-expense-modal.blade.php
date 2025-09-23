@@ -1,3 +1,7 @@
+@php
+    $expenseTypes = \App\Models\ExpenseTypes::all();
+@endphp
+
 <div id="expense-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
     <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
         <div class="p-6">
@@ -13,6 +17,18 @@
             <form id="expense-form" action="{{ route('user.expense.store') }}" method="POST">
                 @csrf
                 <div class="space-y-4">
+                    <div>
+                        <label for="expense_type_id" class="block text-sm font-medium text-gray-700">Expense Category</label>
+                        <select name="expense_type_id" id="expense_type_id" 
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                        required>
+                        <option value="" hidden disabled {{ old('expense_type_id') ? '' : 'selected' }}>Select an option</option>
+                        @foreach($expenseTypes as $type)
+                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+
                     <div>
                         <label for="description" class="block text-sm font-medium text-gray-700">Additional description</label>
                         <input type="text" name="description" id="description" 
@@ -32,25 +48,12 @@
                         </div>
                     </div>
                     
-                    <div>
-                        <label for="expense_type_id" class="block text-sm font-medium text-gray-700">Expense Category</label>
-                        <select name="expense_type_id" id="expense_type_id" 
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
-                        required>
-                        <option value="" hidden disabled {{ old('expense_type_id') ? '' : 'selected' }}>Select an option</option>
-                        @foreach($expenseTypes as $type)
-                            <option value="{{ $type->id }}">{{ $type->name }}</option>
-                        @endforeach
-                        </select>
-                    </div>
 
                     <div>
                         <label for="card_id" class="block text-sm font-medium text-gray-700">Card <span class="text-gray-500 bg-gray-200 rounded p-1">Optional</span></label>
                         <select name="card_id" id="card_id" 
                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             <option value="" hidden disabled {{ old('card_id') ? '' : 'selected' }}>Select an option</option>
-                            <option value="1">Cartão 1</option>
-                            <option value="2">Cartão 2</option>
                         </select>
                     </div>
 
