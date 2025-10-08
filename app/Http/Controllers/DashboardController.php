@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-        return view('dashboard');
+
+        $userExpenses = auth()->user()->expenses;
+        return view('dashboard', ['expenses' => $userExpenses]);
     }
 }

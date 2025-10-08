@@ -39,4 +39,8 @@ class UserBalanceController extends Controller
             return redirect()->back()->withErrors('Something went wrong.')->withInput();
         }
     }
+
+    public function update(UpdateBalanceRequest $request){
+        
+    }
 }

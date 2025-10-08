@@ -135,7 +135,7 @@ document.getElementById('expense-modal').addEventListener('click', function(e) {
 
 document.getElementById('amount').addEventListener('input', function(e) {
     let value = this.value;
-    const balanceAmount = parseFloat(document.getElementById('balance-amount').textContent) || 0;
+    const balanceAmount = {{ $balanceAmount }};
     const submitButton = document.getElementById('submit-expense-button');
     value = value.replace(/\D/g, '');    
     value = (value / 100).toFixed(2);

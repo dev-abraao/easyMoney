@@ -26,7 +26,7 @@
                     </div>
                 @endif
 
-                <x-create-expense-modal/>
+                <x-create-expense-modal balanceAmount="{{ Auth::user()->balance->amount ?? 0 }}"/>
 
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
