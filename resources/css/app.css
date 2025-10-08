@@ -13,3 +13,8 @@
 body {
     font-family: 'Lato';
 }
+
+  /* For Chrome, Safari, and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
