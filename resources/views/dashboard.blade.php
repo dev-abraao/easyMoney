@@ -5,7 +5,7 @@
     <x-create-balance-modal/>
     @endif
 
-    <div class="grid grid-cols-1 w-1/3 overflow-y-auto h-[100vh] scroll-smooth overscroll-contain no-scrollbar">
+    <div class="flex flex-col w-1/3 overflow-y-auto h-[100vh] scroll-smooth overscroll-contain no-scrollbar">
         @forelse ($expenses as $expense)
             <x-expense-card :expense="$expense"/>
         @empty
