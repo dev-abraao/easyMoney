@@ -135,7 +135,7 @@ document.getElementById('expense-modal').addEventListener('click', function(e) {
 
 document.getElementById('amount').addEventListener('input', function(e) {
     let value = this.value;
-    const balanceAmount = {{ $balanceAmount }};
+    const balanceAmount = {{ Auth::user()->balance->amount ?? 0 }};
     const submitButton = document.getElementById('submit-expense-button');
     value = value.replace(/\D/g, '');    
     value = (value / 100).toFixed(2);

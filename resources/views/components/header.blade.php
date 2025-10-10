@@ -59,7 +59,7 @@
 </div>
 
 <!-- Modal -->
-<x-create-expense-modal balanceAmount="{{ Auth::user()->balance->amount ?? 0 }}"/>
+<x-create-expense-modal/>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

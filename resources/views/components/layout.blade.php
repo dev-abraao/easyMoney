@@ -14,6 +14,8 @@
     </head>
     <body class="flex h-screen">
         <x-header/>
-        {{ $slot }}
+        <main class="w-full">
+            {{ $slot }}
+        </main>
     </body>
 </html>
