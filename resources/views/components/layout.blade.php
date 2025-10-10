@@ -12,7 +12,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
-    <body>
+    <body class="flex h-screen">
         <x-header/>
         {{ $slot }}
     </body>
