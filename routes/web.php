@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RecurringExpenseController;
 use App\Http\Controllers\UserBalanceController;
 use App\Http\Controllers\UserExpenseController;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,6 @@ Route::post('/user-balance', [UserBalanceController::class, 'store'])->name('use
 
 Route::post('/user-expense', [UserExpenseController::class, 'store'])->name('user.expense.store');
 Route::delete('/user-expense/{userExpense}', [UserExpenseController::class, 'destroy'])->name('user.expense.destroy');
+
+Route::get('/recurring/expenses', [RecurringExpenseController::class, 'index'])->name('recurring.expenses.index');
+Route::post('/recurring/expenses', [RecurringExpenseController::class, 'store'])->name('recurring.expenses.store');
