@@ -10,10 +10,13 @@ class DashboardController extends Controller
 {
     public function index(){
 
-        $userExpenses = UserExpense::where('user_id', auth()->id())
-            ->with('type') // Eager load the related expense type
+        $latestExpenses = UserExpense::where('user_id', auth()->id())
+            ->with('type') 
             ->orderBy('created_at', 'desc')
+            ->limit(10)
             ->get();
-        return view('dashboard', ['expenses' => $userExpenses]);
+
+        $expensesCount = auth()->user()->expenses()->count();
+        return view('dashboard', ['expenses' => $latestExpenses, 'expensesCount' => $expensesCount]);
     }
 }

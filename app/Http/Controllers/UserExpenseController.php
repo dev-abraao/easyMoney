@@ -99,6 +99,25 @@ class UserExpenseController extends Controller
      */
     public function destroy(UserExpense $userExpense)
     {
-        //
+
+        if (auth()->id() !== $userExpense->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        try {
+            $userBalance = auth()->user()->balance;
+
+            DB::transaction(function () use ($userBalance, $userExpense) {
+                $userBalance->amount += $userExpense->amount;
+                $userBalance->save();
+                $userExpense->delete();
+
+            });
+            return redirect()->back()->with('success', 'Expense deleted successfully.');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error', 'Something went wrong. Please try again later.');
+        }
+
+
     }
 }

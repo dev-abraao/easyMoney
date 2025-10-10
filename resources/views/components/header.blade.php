@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <h1 class="text-2xl font-bold text-white">EasyMoney</h1>
-                <div class="w-2 h-2 bg-[#00d19f] rounded-full animate-bounce"></div>
+                <div class="w-2 h-2 bg-[#00d19f] rounded-full animate-pulse"></div>
             </div>
 
             <div class="flex items-center space-x-6">

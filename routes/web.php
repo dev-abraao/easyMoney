@@ -20,3 +20,4 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::post('/user-balance', [UserBalanceController::class, 'store'])->name('user.balance.store');
 
 Route::post('/user-expense', [UserExpenseController::class, 'store'])->name('user.expense.store');
+Route::delete('/user-expense/{userExpense}', [UserExpenseController::class, 'destroy'])->name('user.expense.destroy');
