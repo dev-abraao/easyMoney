@@ -1,11 +1,13 @@
 {{-- filepath: c:\Users\Abraão\Documents\easyMoney\resources\views\components\header.blade.php --}}
 <div id="sidebar" class="bg-[#213e4f] text-white shadow-lg w-64 h-screen flex flex-col transition-all duration-300">
     <!-- Logo Section with Toggle Button -->
-    <div class="p-6 border-b border-white/10 flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-            <h1 id="logo-text" class="text-2xl font-bold text-white transition-opacity duration-300">EasyMoney</h1>
-            <div class="w-2 h-2 bg-[#00d19f] rounded-full animate-pulse"></div>
+    <a href="{{ route('dashboard') }}">
+        <div class="p-6 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <h1 id="logo-text" class="text-2xl font-bold text-white transition-opacity duration-300">EasyMoney</h1>
+            <div class="w-2 h-2 bg-[#00d19f] rounded-full animate-bounce"></div>
         </div>
+    </a>
         <button id="sidebar-toggle" class="text-white hover:text-[#aef3b0] transition-colors duration-200 p-1">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>

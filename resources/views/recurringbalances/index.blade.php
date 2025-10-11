@@ -28,11 +28,11 @@
             <input type="text" id="description" name="description" required>
         </div>
         <div>
-            @error('amount')
+            @error('amount2')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" name="amount" step="0.01" required>
+            <label for="amount2">Amount:</label>
+            <x-amount id="amount2" name="amount2" submitButtonId="submit-recurring-balance" :validateBalance="true"/>
         </div>
         <div>
             @error('frequency')
@@ -45,6 +45,6 @@
             @endforeach
             </select>
         </div>
-        <button type="submit">Add Recurring Balance</button>
+        <button type="submit" id="submit-recurring-balance">Add Recurring Balance</button>
     </form>
 </x-layout>

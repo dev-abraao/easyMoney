@@ -17,5 +17,7 @@
         <main class="w-full">
             {{ $slot }}
         </main>
+
+        @stack('scripts')
     </body>
 </html>
