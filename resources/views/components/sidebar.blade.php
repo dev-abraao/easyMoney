@@ -1,5 +1,5 @@
 {{-- filepath: c:\Users\Abraão\Documents\easyMoney\resources\views\components\header.blade.php --}}
-<div id="sidebar" class="bg-[#213e4f] shadow-lg w-64 h-screen flex flex-col transition-all duration-300">
+<div id="sidebar" class="bg-[#213e4f] text-white shadow-lg w-64 h-screen flex flex-col transition-all duration-300">
     <!-- Logo Section with Toggle Button -->
     <div class="p-6 border-b border-white/10 flex items-center justify-between">
         <div class="flex items-center space-x-2">
@@ -42,7 +42,10 @@
     
 
     <!-- Spacer to push logout to bottom -->
-    <div class="flex-1"></div>
+    <div class="flex flex-col items-center gap-2 font-bold flex-1">
+        <a href="{{ route('recurring.expenses.index') }}">Recurring expenses</a>
+        <a href="{{ route('recurring.balances.index') }}">Recurring payments</a>
+    </div>
 
     <!-- Logout Section -->
     <div class="p-6 border-t border-white/10">

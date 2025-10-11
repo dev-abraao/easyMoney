@@ -13,7 +13,7 @@
 
     </head>
     <body class="flex h-screen">
-        <x-header/>
+        <x-sidebar/>
         <main class="w-full">
             {{ $slot }}
         </main>
