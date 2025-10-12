@@ -3,10 +3,11 @@
     'name',
     'submitButtonId',
     'validateBalance' => true,
+    'class' => '',
 ])
 
 <input type="text" name="{{ $name }}" id="{{ $id }}" step="0.01" min="0.01"
-class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+class="{{ $class }}" 
 required>
 
 @if($validateBalance)
