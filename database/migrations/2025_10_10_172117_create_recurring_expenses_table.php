@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->decimal('rec_ex_amount', 19, 2);
+            $table->foreignUuid('card_id')->nullable()->constrained('cards')->onDelete('set null');
             $table->enum('frequency', Frequency::cases());
             $table->date('next_due_date');
             $table->timestamps();

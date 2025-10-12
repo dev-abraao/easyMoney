@@ -26,6 +26,11 @@ class UserExpense extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function card()
+    {
+        return $this->belongsTo(Card::class);
+    }
+
     public function type()
     {
         return $this->belongsTo(ExpenseTypes::class, 'expense_type_id');

@@ -54,8 +54,23 @@ class User extends Authenticatable
         return $this->hasOne(UserBalance::class);
     }
 
+    public function cards()
+    {
+        return $this->hasMany(Card::class);
+    }
+
     public function expenses()
     {
         return $this->hasMany(UserExpense::class);
+    }
+
+    public function recurringExpenses()
+    {
+        return $this->hasMany(RecurringExpense::class);
+    }
+
+    public function recurringBalances()
+    {
+        return $this->hasMany(RecurringBalance::class);
     }
 }

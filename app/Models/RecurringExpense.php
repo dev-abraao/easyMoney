@@ -15,7 +15,18 @@ class RecurringExpense extends Model
         'name',
         'description',
         'rec_ex_amount',
+        'card_id',
         'frequency',
         'next_due_date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function card()
+    {
+        return $this->belongsTo(Card::class);
+    }
 }

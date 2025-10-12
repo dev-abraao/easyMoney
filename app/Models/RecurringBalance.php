@@ -18,4 +18,9 @@ class RecurringBalance extends Model
         'frequency',
         'next_due_date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

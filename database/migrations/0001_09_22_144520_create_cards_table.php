@@ -15,8 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->string('name');
-            $table->string('brand')->nullable();
             $table->string('last4')->nullable();
+            $table->string('brand')->nullable();
             $table->timestamps();
         });
     }
