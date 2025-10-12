@@ -22,7 +22,6 @@ required>
         document.getElementById('{{ $id }}').addEventListener('input', function(e) {
             let value = this.value;
             
-            // Sempre formata o valor
             value = value.replace(/\D/g, '');    
             value = (value / 100).toFixed(2);
             value = value.replace(',', '.');

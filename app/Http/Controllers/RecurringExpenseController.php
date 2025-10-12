@@ -24,7 +24,7 @@ class RecurringExpenseController extends Controller
                 'user_id' => auth()->id(),
                 'name' => $request->name,
                 'description' => $request->description,
-                'amount' => $request->amount,
+                'rec_ex_amount' => $request->rec_ex_amount,
                 'frequency' => $request->frequency,
                 'next_due_date' => $nextDueDate,
             ]);

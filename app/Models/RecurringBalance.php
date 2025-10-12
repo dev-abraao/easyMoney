@@ -14,7 +14,7 @@ class RecurringBalance extends Model
         'user_id',
         'name',
         'description',
-        'amount',
+        'rec_bal_amount',
         'frequency',
         'next_due_date',
     ];

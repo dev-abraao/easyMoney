@@ -14,7 +14,7 @@ class RecurringExpense extends Model
         'user_id',
         'name',
         'description',
-        'amount',
+        'rec_ex_amount',
         'frequency',
         'next_due_date',
     ];

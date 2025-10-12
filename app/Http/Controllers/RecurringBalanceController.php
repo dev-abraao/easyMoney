@@ -25,7 +25,7 @@ class RecurringBalanceController extends Controller
                 'user_id' => auth()->id(),
                 'name' => $request->name,
                 'description' => $request->description,
-                'amount' => $request->amount,
+                'rec_bal_amount' => $request->rec_bal_amount,
                 'frequency' => $request->frequency,
                 'next_due_date' => $nextPayDate,
             ]);

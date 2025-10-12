@@ -24,7 +24,7 @@ class CreateRecurringBalanceRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
-            'amount' => 'required|numeric|min:0.01',
+            'rec_bal_amount' => 'required|numeric|min:0.01',
             'frequency' => 'required|string|in:daily,weekly,monthly,yearly',
         ];
     }
