@@ -12,9 +12,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
-    <body class="flex h-screen">
+    <body class="flex h-screen bg-gray-900">
         <x-sidebar/>
-        <main class="w-full">
+        <main class="w-full bg-gray-900 text-white">
             {{ $slot }}
         </main>
 

@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-
 class Card extends Model
 {
+    use HasUuids;
     protected $keyType = 'string';
 
     protected $fillable = [
         'user_id',
         'name',
         'last4',
-        'brand',
+        'limit',
     ];
 
     public function user()

@@ -1,5 +1,6 @@
 @php
     $expenseTypes = \App\Models\ExpenseTypes::all();
+    $userCards = Auth::user()->cards;
 @endphp
 
 <div id="expense-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
@@ -54,6 +55,9 @@
                         <select name="card_id" id="card_id" 
                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             <option value="" hidden disabled {{ old('card_id') ? '' : 'selected' }}>Select an option</option>
+                            @foreach($userCards as $card)
+                                <option value="{{ $card->id }}">{{ $card->name }} - &#40;{{ $card->last4 }}&#41;</option>
+                            @endforeach
                         </select>
                     </div>
 

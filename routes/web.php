@@ -6,6 +6,7 @@ use App\Http\Controllers\RecurringBalanceController;
 use App\Http\Controllers\RecurringExpenseController;
 use App\Http\Controllers\UserBalanceController;
 use App\Http\Controllers\UserExpenseController;
+use App\Http\Controllers\CardController;
 use Illuminate\Support\Facades\Route;
 
 // Currently, only the login.view and dashboard routes utilize middleware. Additional routes should be incorporated as necessary.
@@ -29,3 +30,6 @@ Route::post('/recurring/expenses', [RecurringExpenseController::class, 'store'])
 
 Route::get('/recurring/balances', [RecurringBalanceController::class, 'index'])->name('recurring.balances.index');
 Route::post('/recurring/balances', [RecurringBalanceController::class, 'store'])->name('recurring.balances.store');
+
+Route::get('/cards', [CardController::class, 'index'])->name('cards.index');
+Route::post('/cards', [CardController::class, 'store'])->name('cards.store');

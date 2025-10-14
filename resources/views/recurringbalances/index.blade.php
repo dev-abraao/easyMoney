@@ -32,7 +32,7 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <label for="rec_bal_amount">Amount:</label>
-            <x-amount id="rec_bal_amount" name="rec_bal_amount" class="bg-blue-500" submitButtonId="submit-recurring-balance" :validateBalance="false"/>
+            <x-amount id="rec_bal_amount" name="rec_bal_amount" class="" submitButtonId="submit-recurring-balance" :validateBalance="false"/>
         </div>
         <div>
             @error('frequency')
