@@ -45,6 +45,8 @@ class CardController extends Controller
                 'name' => $request->name,
                 'last4' => $request->last4,
                 'limit' => $request->limit,
+                'closing_day' => $request->closing_day,
+                'due_day' => $request->due_day,
             ]);
         }catch(Throwable $e){
             return redirect()->route('cards.index')->with('error', 'An error occurred while adding the card.');

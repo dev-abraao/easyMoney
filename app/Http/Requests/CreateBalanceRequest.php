@@ -22,16 +22,16 @@ class CreateBalanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => ['required', 'numeric', 'min:0'],
+            'balance_amount' => ['required', 'numeric', 'min:0'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'amount.required' => 'The amount field is required.',
-            'amount.numeric' => 'The amount must be a number.',
-            'amount.min' => 'The amount must be at least 0.',
+            'balance_amount.required' => 'The balance amount field is required.',
+            'balance_amount.numeric' => 'The amount must be a number.',
+            'balance_amount.min' => 'The amount must be at least 0.',
         ];
     }
 }

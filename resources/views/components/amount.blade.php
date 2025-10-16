@@ -4,10 +4,11 @@
     'submitButtonId',
     'validateBalance' => true,
     'class' => '',
+    'placeholder' => '0.00'
 ])
 
 <input type="text" name="{{ $name }}" id="{{ $id }}" step="0.01" min="0.01"
-class="{{ $class }}" 
+class="{{ $class }}" placeholder="{{ $placeholder }}"
 required>
 
 @if($validateBalance)
@@ -28,7 +29,7 @@ required>
             value = value.replace(',', '.');
             
             @if($validateBalance)
-                const balanceAmount = {{ Auth::user()->balance->amount ?? 0 }};
+                const balanceAmount = {{ Auth::user()->balance->balance_amount ?? 0 }};
                 const submitButton = document.getElementById('{{ $submitButtonId }}');
                 
                 if (parseFloat(value) > balanceAmount && submitButton) {

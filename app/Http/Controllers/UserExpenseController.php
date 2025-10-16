@@ -41,12 +41,12 @@ class UserExpenseController extends Controller
                 throw ValidationException::withMessages(['error' => 'User has no balance available.']);
             }
 
-            if ($validated['amount'] > $userBalance->amount) {
+            if ($validated['amount'] > $userBalance->balance_amount) {
                 throw ValidationException::withMessages(['error' => 'Insufficient balance to cover this expense.']);
             }
             $expense = DB::transaction(function () use ($validated, $userBalance) {
                 $expense = UserExpense::create($validated);
-                $userBalance->amount -= $expense->amount;
+                $userBalance->balance_amount -= $expense->amount;
                 $userBalance->save();
                 return $expense;
             });
@@ -108,7 +108,7 @@ class UserExpenseController extends Controller
             $userBalance = auth()->user()->balance;
 
             DB::transaction(function () use ($userBalance, $userExpense) {
-                $userBalance->amount += $userExpense->amount;
+                $userBalance->balance_amount += $userExpense->amount;
                 $userBalance->save();
                 $userExpense->delete();
 

@@ -25,6 +25,8 @@ class CardStoreRequest extends FormRequest
             'name' => 'required|string|max:255',
             'last4' => 'required|string|size:4',
             'limit' => 'nullable|numeric|min:0',
+            'closing_day' => 'nullable|integer|min:1|max:31',
+            'due_day' => 'nullable|integer|min:1|max:31',
         ];
     }
 }

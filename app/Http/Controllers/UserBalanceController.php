@@ -19,7 +19,7 @@ class UserBalanceController extends Controller
         try {
             $userBalance = UserBalance::create([
                 'user_id' => auth()->id(),
-                'amount' => $request->amount
+                'balance_amount' => $request->balance_amount
             ]);
 
             if (!$userBalance) {

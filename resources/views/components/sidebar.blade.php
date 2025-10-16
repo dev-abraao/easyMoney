@@ -26,7 +26,7 @@
         @if (Auth::user()->balance)
             <div id="balance-card" class="bg-gray-700 backdrop-blur-sm rounded-lg px-4 py-3 border border-gray-600 hover:bg-green-600/20 transition-all duration-300 cursor-pointer transform hover:scale-105" onclick="openExpenseModal()">
                 <p class="text-xs text-green-400 font-medium">Balance</p>
-                <p class="text-lg font-bold text-white" id="balance-amount">${{ Auth::user()->balance->amount }}</p>
+                <p class="text-lg font-bold text-white" id="balance-amount">${{ Auth::user()->balance->balance_amount }}</p>
                 <p class="text-xs text-green-400 mt-1">Click to add expense</p>
             </div>
         @else

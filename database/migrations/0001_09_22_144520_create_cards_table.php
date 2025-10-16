@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('last4')->nullable();
             $table->decimal('limit', 19, 2)->nullable();
+            $table->integer('closing_day')->nullable();
+            $table->integer('due_day')->nullable();
             $table->timestamps();
         });
     }

@@ -39,9 +39,7 @@
 
                     <div>
                         <label for="amount" class="block text-sm font-medium text-gray-300 mb-2">Amount</label>
-                        <input type="text" name="amount" id="amount" step="0.01" min="0.01"
-                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors" 
-                        placeholder="0.00" required>
+                        <x-amount name="amount" id="amount" submitButtonId="submit-expense-button" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"/>
                         <div id="error-container" class="mt-2 hidden">
                             <div class="bg-red-900 border border-red-700 text-red-300 px-3 py-2 rounded-md text-sm">
                                 <span id="error-message"></span>
@@ -149,29 +147,5 @@
         if (e.target === this) {
             closeExpenseModal();
         }
-    });
-
-    document.getElementById('amount').addEventListener('input', function(e) {
-        let value = this.value;
-        const balanceAmount = {{ Auth::user()->balance->amount ?? 0 }};
-        const submitButton = document.getElementById('submit-expense-button');
-        value = value.replace(/\D/g, '');    
-        value = (value / 100).toFixed(2);
-        value = value.replace(',', '.');
-
-        if (parseFloat(value) > balanceAmount) {
-            document.getElementById('error-message').textContent = 'Amount cannot exceed your available balance.';
-            document.getElementById('error-container').classList.remove('hidden');
-            submitButton.classList.remove('bg-green-600', 'hover:bg-green-700');
-            submitButton.classList.add('bg-gray-600', 'cursor-not-allowed');
-            submitButton.disabled = true;
-        } else {
-            document.getElementById('error-container').classList.add('hidden');
-            submitButton.disabled = false;
-            submitButton.classList.add('bg-green-600', 'hover:bg-green-700');
-            submitButton.classList.remove('bg-gray-600', 'cursor-not-allowed');
-        }
-
-        this.value = value;
     });
 </script>

@@ -14,6 +14,8 @@ class Card extends Model
         'name',
         'last4',
         'limit',
+        'closing_day',
+        'due_day',
     ];
 
     public function user()
