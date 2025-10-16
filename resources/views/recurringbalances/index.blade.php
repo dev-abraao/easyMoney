@@ -45,6 +45,6 @@
             @endforeach
             </select>
         </div>
-        <button type="submit" id="submit-recurring-balance">Add Recurring Balance</button>
+        <button type="submit" id="submit-recurring-balance">Add Payment</button>
     </form>
 </x-layout>

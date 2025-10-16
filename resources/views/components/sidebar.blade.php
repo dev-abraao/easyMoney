@@ -1,9 +1,8 @@
-<div id="sidebar" class="bg-gray-800 text-white shadow-lg w-64 h-screen flex flex-col transition-all duration-300 border-r border-gray-700">
+<div id="sidebar" class="bg-gray-800 text-white shadow-lg w-72 h-dvh flex flex-col transition-all duration-300 border-r border-gray-700">
     <!-- Logo Section with Toggle Button -->
     <div class="p-6 border-b border-gray-700 flex items-center justify-between">
         <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
             <h1 id="logo-text" class="text-2xl font-bold text-white transition-opacity duration-300 font-oswald">EasyMoney</h1>
-            <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
         </a>
         <button id="sidebar-toggle" class="text-gray-400 hover:text-green-400 transition-colors duration-200 p-1">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,13 +44,13 @@
             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
             </svg>
-            <span id="nav-text-1" class="transition-opacity duration-300">Recurring Expenses</span>
+            <span id="nav-text-1" class="transition-opacity duration-300">Expenses</span>
         </a>
         <a href="{{ route('recurring.balances.index') }}" class="text-gray-300 hover:text-green-400 hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200 flex items-center space-x-3">
             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
             </svg>
-            <span id="nav-text-2" class="transition-opacity duration-300">Recurring Payments</span>
+            <span id="nav-text-2" class="transition-opacity duration-300">Payments</span>
         </a>
         <a href="{{ route('cards.index') }}" class="text-gray-300 hover:text-green-400 hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200 flex items-center space-x-3">
             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isCollapsed) {
             // Expand sidebar
             sidebar.classList.remove('w-24');
-            sidebar.classList.add('w-64');
+            sidebar.classList.add('w-72');
             
             // Show text elements
             setTimeout(() => {
@@ -138,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (text) text.classList.add('hidden');
                 });
                 
-                sidebar.classList.remove('w-64');
+                sidebar.classList.remove('w-72');
                 sidebar.classList.add('w-24');
             }, 150);
             
