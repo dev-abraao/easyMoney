@@ -1,4 +1,4 @@
-<div id="sidebar" class="bg-gray-800 text-white shadow-lg w-72 h-dvh flex flex-col transition-all duration-300 border-r border-gray-700">
+<div id="sidebar" class="fixed bg-gray-800 text-white shadow-lg w-72 h-dvh flex flex-col transition-all duration-300 border-r border-gray-700">
     <!-- Logo Section with Toggle Button -->
     <div class="p-6 border-b border-gray-700 flex items-center justify-between">
         <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">

@@ -29,7 +29,11 @@ required>
             value = value.replace(',', '.');
             
             @if($validateBalance)
-                const balanceAmount = {{ Auth::user()->balance->balance_amount ?? 0 }};
+                @if(Auth::user()->balance)
+                    const balanceAmount = {{ Auth::user()->balance->balance_amount }};
+                @else
+                    const balanceAmount = Infinity;
+                @endif
                 const submitButton = document.getElementById('{{ $submitButtonId }}');
                 
                 if (parseFloat(value) > balanceAmount && submitButton) {

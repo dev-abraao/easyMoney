@@ -12,7 +12,11 @@ class RecurringBalanceController extends Controller
 {
     public function index()
     {
-        return view('recurringbalances.index', ['frequencies' => \App\Frequency::cases()]);
+        $userRecurringBalances = auth()->user()->recurringBalances;
+        return view('recurringbalances.index', [
+            'frequencies' => \App\Frequency::cases(),
+            'recurringBalances' => $userRecurringBalances
+        ]);
     }
 
     public function store(CreateRecurringBalanceRequest $request)

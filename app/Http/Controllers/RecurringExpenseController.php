@@ -12,7 +12,9 @@ class RecurringExpenseController extends Controller
 {
     public function index()
     {
-        return view('recurringexpenses.index', ['frequencies' => \App\Frequency::cases()]);
+        $userRecurringExpenses = auth()->user()->recurringExpenses;
+        $userCards = auth()->user()->cards;
+        return view('recurringexpenses.index', ['frequencies' => \App\Frequency::cases(), 'recurringExpenses' => $userRecurringExpenses, 'userCards' => $userCards]);
     }
 
     public function store(CreateRecurringExpenseRequest $request)
@@ -26,6 +28,7 @@ class RecurringExpenseController extends Controller
                 'description' => $request->description,
                 'rec_ex_amount' => $request->rec_ex_amount,
                 'frequency' => $request->frequency,
+                'card_id' => $request->card_id,
                 'next_due_date' => $nextDueDate,
             ]);
 
