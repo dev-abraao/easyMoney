@@ -26,6 +26,7 @@ class CreateExpenseRequest extends FormRequest
             'description' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'card_id' => ['nullable', 'exists:cards,id'],
+            'installments' => ['nullable','required_if:card_id,!=,null', 'integer', 'min:1'],
             'date' => ['required', 'date'],
         ];
     }
@@ -43,6 +44,9 @@ class CreateExpenseRequest extends FormRequest
             'expense_type_id.required' => 'Please select an expense type.',
             'expense_type_id.exists' => 'Selected expense type is invalid.',
             'card_id.exists' => 'Selected card is invalid.',
+            'installments.required_if' => 'Please provide the number of installments when a card is selected.',
+            'installments.integer' => 'Installments must be an integer.',
+            'installments.min' => 'Installments must be at least 1.',
         ];
     }
 }

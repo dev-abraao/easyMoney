@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateExpenseRequest;
 use App\Models\UserExpense;
+use App\Models\ExpenseInfo;
+use App\Models\Card;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -32,10 +35,13 @@ class UserExpenseController extends Controller
      */
     public function store(CreateExpenseRequest $request)
     {
+        // dd($request);
+        
         try {
             $validated = $request->validated();
             $validated['user_id'] = auth()->id();
             $userBalance = auth()->user()->balance;
+
 
             if (!$userBalance) {
                 throw ValidationException::withMessages(['error' => 'User has no balance available.']);
@@ -44,15 +50,38 @@ class UserExpenseController extends Controller
             if ($validated['amount'] > $userBalance->balance_amount) {
                 throw ValidationException::withMessages(['error' => 'Insufficient balance to cover this expense.']);
             }
-            $expense = DB::transaction(function () use ($validated, $userBalance) {
-                $expense = UserExpense::create($validated);
-                $userBalance->balance_amount -= $expense->amount;
-                $userBalance->save();
-                return $expense;
+            $createdExpense = DB::transaction(function () use ($validated, $userBalance) {
+
+                $newExpense = UserExpense::create([
+                    'user_id' => $validated['user_id'],
+                    'expense_type_id' => $validated['expense_type_id'],
+                    'description' => $validated['description'],
+                    'amount' => $validated['amount'],
+                    'card_id' => $validated['card_id'] ?? null,
+                    'date' => $validated['date'],
+                ]);
+
+                if (isset($validated['card_id']) && isset($validated['installments']) && $validated['installments'] > 1) {
+                    ExpenseInfo::create([
+                        'user_expense_id' => $newExpense->id,
+                        'installments' => $validated['installments'],
+                        'installment_amount' => $validated['amount'] / $validated['installments'],
+                        'remaining_installments' => $validated['installments'],
+                        'next_due_date' => $this->dueDate($validated['card_id']),
+                        'is_completed' => false,
+                    ]);
+                }
+
+                if (!isset($validated['card_id'])) {
+                    $userBalance->balance_amount -= $newExpense->amount;
+                    $userBalance->save();
+                }
+
+                return $newExpense;
             });
 
             if ($request->ajax()){
-                return response()->json(['success' => true, 'message' => 'Expense created successfully.', 'data' => $expense], 201);
+                return response()->json(['success' => true, 'message' => 'Expense created successfully.', 'data' => $createdExpense], 201);
             }
 
             return redirect()->back()->with('success', 'Expense created successfully.');
@@ -61,13 +90,25 @@ class UserExpenseController extends Controller
             if ($request->ajax()){
                 return response()->json(['success' => false, 'errors' => $e->errors()], 422);
             }
-            return redirect()->back()->with('error', 'Something went wrong.')->withInput();
+            return redirect()->back()->with('error', 'Something went wrong2.')->withInput();
         } catch (Throwable $e) {
             if ($request->ajax()){
                 return response()->json(['success' => false, 'errors' => 'An unexpected error occurred. Please try again later.'], 500);
             }
-            return redirect()->back()->with('error', 'Something went wrong.')->withInput();
+            return redirect()->back()->with('error', $e->getMessage())->withInput();
         }
+    }
+
+    private function dueDate($cardId){
+        $card = Card::find($cardId);
+        $currentDate = now();
+        $dueDate = Carbon::createFromFormat('Y-m-d', $currentDate->year . '-' . $currentDate->month . '-' . $card->due_day);
+
+        if ($currentDate->day > $card->closing_day) {
+            $dueDate->addMonth();
+        }
+
+        return $dueDate->toDateString();
     }
 
     /**

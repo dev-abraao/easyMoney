@@ -68,10 +68,10 @@
                         </div>
                         
                         <div id="payment_div" class="hidden">
-                            <label for="payment_amount" class="block text-sm font-medium text-gray-300 mb-2">
+                            <label for="installments" class="block text-sm font-medium text-gray-300 mb-2">
                                 Payment Installments <span class="text-xs text-gray-200 bg-gray-600 rounded px-2 py-1 ml-1">Optional</span>
                             </label>
-                            <select name="payment_amount" id="payment_amount" 
+                            <select name="installments" id="installments" 
                             class="w-full custom-scrollbar px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors">
                                 <option value="" hidden disabled selected class="text-gray-400">Select installments</option>
                                 @for($i = 1; $i <= 24; $i++)
@@ -108,7 +108,7 @@
     const paymentAmount = document.getElementById('payment_div')
     const cardSelect = document.getElementById('card_id')
     const clearCardBtn = document.getElementById('clear-card-btn')
-    const paymentSelect = document.getElementById('payment_amount')
+    const paymentSelect = document.getElementById('installments')
 
     cardSelect.addEventListener('change', function(){
         if(this.value != ""){

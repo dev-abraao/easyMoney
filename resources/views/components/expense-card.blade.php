@@ -3,14 +3,19 @@
 <div {{ $attributes->merge(['class' => 'flex flex-row justify-between items-center bg-gray-800 p-4 border border-gray-700 rounded-lg hover:bg-gray-750 transition-all duration-200 shadow-sm']) }}>
     <div class="flex flex-col">
             <div class="flex items-center gap-2 mb-2">
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            @if($expense->card)
+                <div class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+            @else
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+            @endif
                 <p class="font-semibold text-green-400 text-sm uppercase tracking-wide">{{ $expense->type->name }}</p>
             </div>
             <p class="font-medium text-white text-base mb-1 truncate">{{ $expense->description }}</p>
             @if($expense->card)
                 <div class="flex gap-2 items-center">
                 <p class="font-bold text-green-500 text-lg">${{ number_format($expense->amount, 2) }}</p>
-                <p class="text-xs uppercase">{{$expense->card->name}} <span class="text-gray-400">&#40;{{ $expense->card->last4 }}&#41;</span></p>
+                <p class="text-xs uppercase">{{$expense->card->name}} <span class="text-gray-400">&#40;{{ $expense->card->last4 }}&#41;  -</span></p>
+                 <span class="text-xs text-gray-400">&#40;{{ $expense->info->installments ?? '1' }}x&#41;</span>
                 </div>
             @else
                 <p class="font-bold text-green-500 text-lg">${{ number_format($expense->amount, 2) }}</p>

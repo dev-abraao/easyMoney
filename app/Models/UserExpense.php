@@ -35,4 +35,9 @@ class UserExpense extends Model
     {
         return $this->belongsTo(ExpenseTypes::class, 'expense_type_id');
     }
+
+    public function info()
+    {
+        return $this->hasOne(ExpenseInfo::class);
+    }
 }

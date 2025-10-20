@@ -12,12 +12,15 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
-    <body class="flex h-screen bg-gray-900">
-        <x-sidebar/>
-        <main class="w-full bg-gray-900 text-white">
-            {{ $slot }}
-        </main>
-
+    <body class="bg-gray-900 text-white font-lato">
+        <div class="flex min-h-screen">
+            <div id="sidebar-container" class="flex-shrink-0 w-72 transition-all duration-300">
+                <x-sidebar/>
+            </div>
+            <div id="main-content" class="flex-1 overflow-auto">
+                {{ $slot }}
+            </div>
+        </div>
         @stack('scripts')
     </body>
 </html>

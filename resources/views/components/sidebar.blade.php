@@ -1,4 +1,4 @@
-<div id="sidebar" class="fixed bg-gray-800 text-white shadow-lg w-72 h-dvh flex flex-col transition-all duration-300 border-r border-gray-700">
+<div id="sidebar" class="bg-gray-800 text-white shadow-lg w-full h-screen flex flex-col sticky top-0 transition-all duration-300 border-r border-gray-700">
     <!-- Logo Section with Toggle Button -->
     <div class="p-6 border-b border-gray-700 flex items-center justify-between">
         <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
@@ -21,6 +21,12 @@
             </div>
             <p id="user-name" class="text-white font-semibold transition-opacity duration-300">{{ Auth::user()->name }}</p>
         </div>
+        
+        @if(session('error'))
+            <div class="bg-red-900 border border-red-700 text-red-300 px-4 py-3 rounded-md text-sm mb-6">
+                {{ session('error') }}
+            </div>
+        @endif
 
         <!-- Balance Card -->
         @if (Auth::user()->balance)
@@ -39,7 +45,7 @@
     </div>
     
     <!-- Navigation Links -->
-    <div class="flex flex-col  gap-2 font-semibold flex-1 p-6">
+    <div class="flex flex-col gap-2 font-semibold flex-1 p-6">
         <a href="{{ route('recurring.expenses.index') }}" class="text-gray-300 hover:text-green-400 hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200 flex items-center space-x-3">
             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
@@ -64,9 +70,9 @@
     <div class="p-6 border-t border-gray-700">
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <button type="submit" class=" cursor-pointer bg-gray-700 hover:bg-red-600 text-white w-full py-3 rounded-lg transition-all duration-300 border border-gray-600 hover:border-red-500 font-medium flex items-center justify-center space-x-2">
+            <button type="submit" class="cursor-pointer bg-gray-700 hover:bg-red-600 text-white w-full py-3 rounded-lg transition-all duration-300 border border-gray-600 hover:border-red-500 font-medium flex items-center justify-center space-x-2">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3H7a2 2 0 00-2 2v14a2 2 0 002 2h8M15 12h6m0 0l-3-3m3 3l-3 3"></path>
+                    <path stroke-line   cap="round" stroke-linejoin="round" stroke-width="2" d="M15 3H7a2 2 0 00-2 2v14a2 2 0 002 2h8M15 12h6m0 0l-3-3m3 3l-3 3"></path>
                 </svg>
                 <span id="logout-text" class="transition-opacity duration-300">Logout</span>
             </button>
@@ -80,6 +86,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
+    const sidebarContainer = document.getElementById('sidebar-container');
     const toggleBtn = document.getElementById('sidebar-toggle');
     const logoText = document.getElementById('logo-text');
     const userName = document.getElementById('user-name');
@@ -96,8 +103,8 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleBtn.addEventListener('click', function() {
         if (isCollapsed) {
             // Expand sidebar
-            sidebar.classList.remove('w-24');
-            sidebar.classList.add('w-72');
+            sidebarContainer.classList.remove('w-24');
+            sidebarContainer.classList.add('w-72');
             
             // Show text elements
             setTimeout(() => {
@@ -137,8 +144,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (text) text.classList.add('hidden');
                 });
                 
-                sidebar.classList.remove('w-72');
-                sidebar.classList.add('w-24');
+                sidebarContainer.classList.remove('w-72');
+                sidebarContainer.classList.add('w-24');
             }, 150);
             
             // Rotate toggle icon
