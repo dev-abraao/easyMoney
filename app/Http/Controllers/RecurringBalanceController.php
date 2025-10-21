@@ -21,9 +21,8 @@ class RecurringBalanceController extends Controller
 
     public function store(CreateRecurringBalanceRequest $request)
     {
-
         try {
-            $nextPayDate = $this->calculateNextPayDate($request->frequency);
+            $nextPayDate = $this->calculateNextPayDate($request->frequency, $request->payment_day ? (int)$request->payment_day : null, $request->payment_month ? (int)$request->payment_month : null);
 
             RecurringBalance::create([
                 'user_id' => auth()->id(),
@@ -41,16 +40,27 @@ class RecurringBalanceController extends Controller
 
     }
 
-    private function calculateNextPayDate($frequency)
+    private function calculateNextPayDate($frequency, $paymentDay = null, $paymentMonth = null)
     {
         $now = Carbon::now();
 
         return match ($frequency) {
             'daily' => $now->addDay(),
             'weekly' => $now->addWeek(),
-            'monthly' => $now->addMonth(),
-            'yearly' => $now->addYear(),
+            'monthly' => $this->getNextOccurrence($now, $paymentDay ?? $now->day, $now->month, 'month'),
+            'yearly' => $this->getNextOccurrence($now, $paymentDay ?? $now->day, $paymentMonth ?? $now->month, 'year'),
         };
     }
+
+    private function getNextOccurrence(Carbon $now, int $day, int $month, string $period): Carbon
+{
+    $nextDate = $now->copy()->setMonth($month)->setDay($day);
+    
+    if ($nextDate->lte($now)) {
+        $nextDate = $period === 'month' ? $nextDate->addMonth() : $nextDate->addYear();
+    }
+    
+    return $nextDate;
+}
 
 }

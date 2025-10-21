@@ -89,6 +89,35 @@
                             <div class="mt-2 text-red-400 text-sm">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="hidden" id="payment_divday">
+                        <label for="payment_day" class="block text-sm font-medium text-gray-300 mb-2">Payment Day</label>
+                        <select id="payment_day" name="payment_day"
+                                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors">
+                            <option value="" class="text-gray-400">Select payment day</option>
+                            @for($i = 1; $i <= 31; $i++)
+                                <option value="{{ $i }}" {{ old('payment_day') == $i ? 'selected' : '' }} class="bg-gray-700 text-white">{{ $i }}</option>
+                            @endfor
+                        </select>
+                        @error('payment_day')
+                            <div class="mt-2 text-red-400 text-sm">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="hidden" id="payment_divmonth">
+                        <label for="payment_month" class="block text-sm font-medium text-gray-300 mb-2">Payment Month</label>
+                        <select id="payment_month" name="payment_month"
+                                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors">
+                            <option value="" class="text-gray-400">Select payment month</option>
+                            @for($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}" {{ old('payment_month') == $i ? 'selected' : '' }} class="bg-gray-700 text-white">{{ $i }}</option>
+                            @endfor
+                        </select>
+                        @error('payment_month')
+                            <div class="mt-2 text-red-400 text-sm">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                 </div>
 
                 <div class="flex justify-end">
@@ -155,4 +184,30 @@
             @endforelse
         </div>
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const select = document.getElementById('frequency');
+        const paymentDivDay = document.getElementById('payment_divday');
+        const paymentDivMonth = document.getElementById('payment_divmonth');
+
+
+        select.addEventListener('change', function() {
+
+            document.getElementById('payment_day').value = '';
+            document.getElementById('payment_month').value = '';
+            paymentDivDay.classList.add('hidden');
+            paymentDivMonth.classList.add('hidden');
+
+            if (this.value === 'monthly') {
+                paymentDivDay.classList.remove('hidden');
+                paymentDivMonth.classList.add('hidden');
+            } else if (this.value === 'yearly') {
+                paymentDivMonth.classList.remove('hidden');
+                paymentDivDay.classList.remove('hidden');
+            }
+        });
+    });
+</script>
 </x-layout>
+
+
