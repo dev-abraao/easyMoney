@@ -88,24 +88,52 @@
                             <div class="mt-2 text-red-400 text-sm">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-span-2">
-                        <div class="flex justify-between items-center mb-2">
-                            <label for="card_id" class="block text-sm font-medium text-gray-300">
-                                Card <span class="text-xs text-gray-200 bg-gray-600 rounded px-2 py-1 ml-1">Optional</span>
-                            </label>
-                            <button type="button" id="clear-card-btn" onclick="clearCard()" 
-                            class="text-sm text-green-400 hover:text-green-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors duration-200" disabled>
-                                Clear
-                            </button>
-                        </div>
-                        <select name="card_id" id="card_id" 
-                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors">
-                            <option value="" hidden disabled selected class="text-gray-400">Select a card</option>
-                            @foreach($userCards as $card)
-                                <option value="{{ $card->id }}" class="bg-gray-700 text-white">{{ $card->name }} - ({{ $card->last4 }})</option>
-                            @endforeach
+                    <div class="hidden" id="payment_divday">
+                        <label for="payment_day" class="block text-sm font-medium text-gray-300 mb-2">Payment Day</label>
+                        <select id="payment_day" name="payment_day"
+                                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors">
+                            <option value="" class="text-gray-400">Select payment day</option>
+                            @for($i = 1; $i <= 31; $i++)
+                            <option value="{{ $i }}" {{ old('payment_day') == $i ? 'selected' : '' }} class="bg-gray-700 text-white">{{ $i }}</option>
+                            @endfor
                         </select>
+                        @error('payment_day')
+                        <div class="mt-2 text-red-400 text-sm">{{ $message }}</div>
+                        @enderror
                     </div>
+                    
+                    <div class="hidden" id="payment_divmonth">
+                        <label for="payment_month" class="block text-sm font-medium text-gray-300 mb-2">Payment Month</label>
+                        <select id="payment_month" name="payment_month"
+                        class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors">
+                        <option value="" class="text-gray-400">Select payment month</option>
+                        @for($i = 1; $i <= 12; $i++)
+                        <option value="{{ $i }}" {{ old('payment_month') == $i ? 'selected' : '' }} class="bg-gray-700 text-white">{{ $i }}</option>
+                        @endfor
+                    </select>
+                    @error('payment_month')
+                    <div class="mt-2 text-red-400 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-span-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="card_id" class="block text-sm font-medium text-gray-300">
+                            Card <span class="text-xs text-gray-200 bg-gray-600 rounded px-2 py-1 ml-1">Optional</span>
+                        </label>
+                        <button type="button" id="rec_clear-card-btn" 
+                        class="text-sm text-green-400 hover:text-green-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors duration-200" disabled>
+                            Clear
+                        </button>
+                    </div>
+                    <select name="card_id" id="rec_card_id" 
+                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors">
+                        <option value="" hidden disabled selected class="text-gray-400">Select a card</option>
+                        @foreach($userCards as $card)
+                            <option value="{{ $card->id }}" class="bg-gray-700 text-white">{{ $card->name }} - ({{ $card->last4 }})</option>
+                        @endforeach
+                    </select>
+                </div>
                 </div>
 
                 <div class="flex justify-end">
@@ -179,26 +207,44 @@
             @endforelse
         </div>
     </div>
-</x-layout>
-
-@push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        const cardSelect = document.getElementById('card_id');
-        const clearBtn = document.getElementById('clear-card-btn');
+            const select = document.getElementById('frequency');
+            const paymentDivDay = document.getElementById('payment_divday');
+            const paymentDivMonth = document.getElementById('payment_divmonth');
+            const cardSelect = document.getElementById('rec_card_id');
+            const clearBtn = document.getElementById('rec_clear-card-btn');
 
-        function clearCard() {
-            cardSelect.value = '';
-            clearBtn.disabled = true;
-        }
-    
-    cardSelect.addEventListener('change', function(){
-        if(this.value != ""){
-            clearBtn.disabled = false
-        } else {
-            clearBtn.disabled = true
-        }
-    })
-});
+            select.addEventListener('change', function() {
+                document.getElementById('payment_day').value = '';
+                document.getElementById('payment_month').value = '';
+                paymentDivDay.classList.add('hidden');
+                paymentDivMonth.classList.add('hidden');
+
+                if (this.value === 'monthly') {
+                    paymentDivDay.classList.remove('hidden');
+                    paymentDivMonth.classList.add('hidden');
+                } else if (this.value === 'yearly') {
+                    paymentDivMonth.classList.remove('hidden');
+                    paymentDivDay.classList.remove('hidden');
+                }
+            });
+
+            cardSelect.addEventListener('change', function(){
+                if(this.value != ""){
+                    clearBtn.disabled = false
+                    console.log('está chegando?')
+                } else {
+                    clearBtn.disabled = true
+                    console.log('está chegando?')
+
+                }
+            })
+
+            clearBtn.addEventListener('click', function() {
+                cardSelect.value = '';
+                clearBtn.disabled = true;
+            });
+        });
     </script>
-@endpush
+</x-layout>

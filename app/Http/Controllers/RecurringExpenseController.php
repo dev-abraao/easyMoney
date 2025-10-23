@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateRecurringExpenseRequest;
 use App\Models\RecurringExpense;
+use App\Traits\CalculateRecurringDates;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Throwable;
 
 class RecurringExpenseController extends Controller
 {
+    use CalculateRecurringDates;
+    
     public function index()
     {
         $userRecurringExpenses = auth()->user()->recurringExpenses;
@@ -20,7 +23,7 @@ class RecurringExpenseController extends Controller
     public function store(CreateRecurringExpenseRequest $request)
     {
         try {
-            $nextDueDate = $this->calculateNextDueDate($request->frequency);
+            $nextDueDate = $this->calculateNextDate($request->frequency, $request->payment_day ?? null, $request->payment_month ?? null);
 
             RecurringExpense::create([
                 'user_id' => auth()->id(),
@@ -38,17 +41,4 @@ class RecurringExpenseController extends Controller
         }
 
     }
-
-    private function calculateNextDueDate($frequency)
-    {
-        $now = Carbon::now();
-
-        return match ($frequency) {
-            'daily' => $now->addDay(),
-            'weekly' => $now->addWeek(),
-            'monthly' => $now->addMonth(),
-            'yearly' => $now->addYear(),
-        };
-    }
-
 }
