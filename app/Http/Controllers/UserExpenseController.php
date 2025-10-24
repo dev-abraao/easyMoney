@@ -61,7 +61,7 @@ class UserExpenseController extends Controller
                     'date' => $validated['date'],
                 ]);
 
-                if (isset($validated['card_id']) && isset($validated['installments']) && $validated['installments'] > 1) {
+                if (isset($validated['card_id']) && isset($validated['installments']) && $validated['installments'] >= 2) {
                     ExpenseInfo::create([
                         'user_expense_id' => $newExpense->id,
                         'installments' => $validated['installments'],

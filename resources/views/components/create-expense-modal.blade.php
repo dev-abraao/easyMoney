@@ -74,7 +74,7 @@
                             <select name="installments" id="installments" 
                             class="w-full custom-scrollbar px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors">
                                 <option value="" hidden disabled selected class="text-gray-400">Select installments</option>
-                                @for($i = 1; $i <= 24; $i++)
+                                @for($i = 2; $i <= 24; $i++)
                                     <option value="{{ $i }}" class="bg-gray-700 text-white">{{ $i }}x</option>
                                 @endfor
                             </select>

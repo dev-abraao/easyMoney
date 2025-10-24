@@ -11,7 +11,7 @@ class DashboardController extends Controller
     public function index(){
 
         $latestExpenses = UserExpense::where('user_id', auth()->id())
-            ->with('type') 
+            ->with('type')
             ->orderBy('created_at', 'desc')
             ->limit(10)
             ->get();

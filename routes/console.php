@@ -1,32 +1,41 @@
 <?php
 
+use App\Jobs\PaymentInstallmentJob;
+use App\Jobs\PaymentRecurringBalanceJob;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 use Illuminate\Support\Facades\DB;
 use App\Models\RecurringBalance;
+use App\Models\RecurringExpense;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
 
-// Add Recurring Balances to the account balance
+// Add Recurring Balances to the account balance and update next due date
+Schedule::call(PaymentRecurringBalanceJob::class)->daily();
+
+// Subtract recurring expenses from the account balance and update next due date
 Schedule::call(function () {
     DB::transaction(function () {
-        $balances = RecurringBalance::where('next_due_date', '=', now()->toDateString())->get();
+        $expenses = RecurringExpense::where('next_due_date', '=', now()->toDateString())->get();
 
-        foreach ($balances as $balance) {   
-            $balance->user->balance->increment('balance_amount', $balance->rec_bal_amount);
+        foreach($expenses as $expense){
+            $expense->user->balance->decrement('balance_amount', $expense->rec_ex_amount);
 
-            $balance->next_due_date = match ($balance->frequency) {
+            $expense->next_due_date = match ($expense->frequency) {
                 'daily' => now()->addDay(),
                 'weekly' => now()->addWeek(),
                 'monthly' => now()->addMonth(),
                 'yearly' => now()->addYear(),
             };
 
-            $balance->save();
+            $expense->save();
         }
     });
 })->daily();
+
+// Card Payments processing
+Schedule::job(PaymentInstallmentJob::class)->daily();
