@@ -12,26 +12,21 @@ use Illuminate\Support\Facades\Route;
 // Currently, only the login.view and dashboard routes utilize middleware. Additional routes should be incorporated as necessary.
 
 Route::view('/', 'welcome')->name('login.view')->middleware('guest');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-
 Route::view('/register', 'auth.register')->name('register.view');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/user-balance', [UserBalanceController::class, 'store'])->name('user.balance.store');
 Route::put('/user-balance', [UserBalanceController::class, 'update'])->name('user.balance.update');
 
-Route::post('/user-expense', [UserExpenseController::class, 'store'])->name('user.expense.store');
-Route::delete('/user-expense/{userExpense}', [UserExpenseController::class, 'destroy'])->name('user.expense.destroy');
+Route::resource('user-expense', UserExpenseController::class)->only(['store', 'destroy']);
 
-Route::get('/recurring/expenses', [RecurringExpenseController::class, 'index'])->name('recurring.expenses.index');
-Route::post('/recurring/expenses', [RecurringExpenseController::class, 'store'])->name('recurring.expenses.store');
+Route::resource('recurring/expenses', RecurringExpenseController::class)->names('recurring.expenses')->only(['index', 'store']);
 
-Route::get('/recurring/balances', [RecurringBalanceController::class, 'index'])->name('recurring.balances.index');
-Route::post('/recurring/balances', [RecurringBalanceController::class, 'store'])->name('recurring.balances.store');
+Route::resource('recurring/balances', RecurringBalanceController::class)->names('recurring.balances')->only(['index', 'store']);
 
-Route::get('/cards', [CardController::class, 'index'])->name('cards.index');
-Route::post('/cards', [CardController::class, 'store'])->name('cards.store');
+Route::resource('cards', CardController::class)->names('cards')->only(['index', 'store']);

@@ -15,7 +15,7 @@
                 </button>
             </div>
             
-            <form id="expense-form" action="{{ route('user.expense.store') }}" method="POST">
+            <form id="expense-form" action="{{ route('user-expense.store') }}" method="POST">
                 @csrf
                 <div class="space-y-4">
                     <div>

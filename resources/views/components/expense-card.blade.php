@@ -22,7 +22,7 @@
             @endif
     </div>
     <div class="flex flex-col items-center ml-4">
-        <form action="{{ route('user.expense.destroy', $expense) }}" method="POST" class="flex items-center">
+        <form action="{{ route('user-expense.destroy', $expense) }}" method="POST" class="flex items-center">
             @csrf
             @method('DELETE')
             <button type="submit" 
