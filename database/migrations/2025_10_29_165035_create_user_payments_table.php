@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_expenses', function (Blueprint $table) {
+        Schema::create('user_payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('expense_type_id')->constrained('expense_types')->onDelete('cascade');
             $table->string('description')->nullable();
-            $table->decimal('amount', 19, 2);
-            $table->foreignUuid('card_id')->nullable()->constrained('cards')->onDelete('set null');
+            $table->decimal('payment_amount', 19, 2);
             $table->date('date')->default(now());
             $table->timestamps();
         });
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_expenses');
+        Schema::dropIfExists('user_payments');
     }
 };

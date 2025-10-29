@@ -28,18 +28,60 @@
             </div>
         @endif
 
-        <!-- Balance Card -->
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+            <div class="bg-red-900 border border-red-700 text-red-300 px-4 py-3 rounded-md text-sm mb-6">
+                {{ $error }}
+            </div>
+            @endforeach
+        @endif
+
+        <!-- Balance Card with Action Buttons -->
         @if (Auth::user()->balance)
-            <div id="balance-card" class="bg-gray-700 backdrop-blur-sm rounded-lg px-4 py-3 border border-gray-600 hover:bg-green-600/20 transition-all duration-300 cursor-pointer transform hover:scale-105" onclick="openExpenseModal()">
+            <div id="balance-card" class="bg-gray-700 backdrop-blur-sm rounded-lg px-4 py-3 border border-gray-600 transition-all duration-300">
                 <p class="text-xs text-green-400 font-medium">Balance</p>
-                <p class="text-lg font-bold text-white" id="balance-amount">${{ Auth::user()->balance->balance_amount }}</p>
-                <p class="text-xs text-green-400 mt-1">Click to add expense</p>
+                <p class="text-lg font-bold text-white mb-3" id="balance-amount">${{ Auth::user()->balance->balance_amount }}</p>
+                
+                <!-- Action Buttons -->
+                <div class="flex gap-2 transition-opacity duration-300">
+                    <button onclick="openPaymentModal()" 
+                            class="flex-1 bg-green-600 hover:bg-green-700 text-white text-xs py-2 px-3 rounded-md transition-colors duration-200 flex items-center justify-center space-x-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        <span>Payment</span>
+                    </button>
+                    <button onclick="openExpenseModal()" 
+                            class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xs py-2 px-3 rounded-md transition-colors duration-200 flex items-center justify-center space-x-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                        </svg>
+                        <span>Expense</span>
+                    </button>
+                </div>
             </div>
         @else
-            <div id="balance-card" class="bg-gray-700 backdrop-blur-sm rounded-lg px-4 py-3 border border-gray-600 hover:bg-green-600/20 transition-all duration-300 cursor-pointer transform hover:scale-105" onclick="openExpenseModal()">
+            <div id="balance-card" class="bg-gray-700 backdrop-blur-sm rounded-lg px-4 py-3 border border-gray-600 transition-all duration-300">
                 <p class="text-xs text-green-400 font-medium">Balance</p>
-                <p class="text-lg font-bold text-white" id="balance-amount">$0.00</p>
-                <p class="text-xs text-green-400 mt-1">Click to add expense</p>
+                <p class="text-lg font-bold text-white mb-3" id="balance-amount">$0.00</p>
+                
+                <!-- Action Buttons -->
+                <div class="flex gap-2 transition-opacity duration-300">
+                    <button onclick="openPaymentModal()" 
+                            class="flex-1 bg-green-600 hover:bg-green-700 text-white text-xs py-2 px-3 rounded-md transition-colors duration-200 flex items-center justify-center space-x-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        <span>Payment</span>
+                    </button>
+                    <button onclick="openExpenseModal()" 
+                            class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xs py-2 px-3 rounded-md transition-colors duration-200 flex items-center justify-center space-x-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                        </svg>
+                        <span>Expense</span>
+                    </button>
+                </div>
             </div>
         @endif
     </div>
@@ -72,7 +114,7 @@
             @csrf
             <button type="submit" class="cursor-pointer bg-gray-700 hover:bg-red-600 text-white w-full py-3 rounded-lg transition-all duration-300 border border-gray-600 hover:border-red-500 font-medium flex items-center justify-center space-x-2">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-line   cap="round" stroke-linejoin="round" stroke-width="2" d="M15 3H7a2 2 0 00-2 2v14a2 2 0 002 2h8M15 12h6m0 0l-3-3m3 3l-3 3"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3H7a2 2 0 00-2 2v14a2 2 0 002 2h8M15 12h6m0 0l-3-3m3 3l-3 3"></path>
                 </svg>
                 <span id="logout-text" class="transition-opacity duration-300">Logout</span>
             </button>
@@ -80,8 +122,9 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modals -->
 <x-create-expense-modal/>
+<x-create-payment-modal/>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

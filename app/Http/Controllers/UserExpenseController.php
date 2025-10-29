@@ -90,12 +90,12 @@ class UserExpenseController extends Controller
             if ($request->ajax()){
                 return response()->json(['success' => false, 'errors' => $e->errors()], 422);
             }
-            return redirect()->back()->with('error', 'Something went wrong2.')->withInput();
+            return redirect()->back()->with('error', 'Something went wrong.')->withInput();
         } catch (Throwable $e) {
             if ($request->ajax()){
                 return response()->json(['success' => false, 'errors' => 'An unexpected error occurred. Please try again later.'], 500);
             }
-            return redirect()->back()->with('error', $e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Something went wrong.')->withInput();
         }
     }
 

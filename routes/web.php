@@ -20,7 +20,9 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+
 Route::post('/user-balance', [UserBalanceController::class, 'store'])->name('user.balance.store');
+Route::put('/user-balance', [UserBalanceController::class, 'update'])->name('user.balance.update');
 
 Route::post('/user-expense', [UserExpenseController::class, 'store'])->name('user.expense.store');
 Route::delete('/user-expense/{userExpense}', [UserExpenseController::class, 'destroy'])->name('user.expense.destroy');
