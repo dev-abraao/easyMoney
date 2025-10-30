@@ -1,4 +1,4 @@
-<div id="sidebar" class="bg-gray-800 text-white shadow-lg w-full h-screen flex flex-col sticky top-0 transition-all duration-300 border-r border-gray-700">
+<div id="sidebar" class="bg-gray-800 text-white shadow-lg w-full h-screen flex flex-col sticky top-0 border-r border-gray-700">
     <div class="p-6 border-b border-gray-700 flex items-center justify-between">
         <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 overflow-hidden">
             <div class="bg-gradient-to-r from-green-400 to-green-600 p-2 rounded-lg flex-shrink-0">
@@ -7,7 +7,7 @@
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"></path>
                 </svg>
             </div>
-            <h1 id="logo-text" class="text-xl font-bold text-white transition-opacity duration-300 font-oswald whitespace-nowrap">EasyMoney</h1>
+            <h1 id="logo-text" class="text-xl font-bold text-white transition-opacity duration-300 font-oswald whitespace-nowrap sidebar-text">EasyMoney</h1>
         </a>
         <button id="sidebar-toggle" class="text-gray-400 hover:text-green-400 transition-colors duration-200 p-2 hover:bg-gray-700 rounded-lg flex-shrink-0">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -23,7 +23,7 @@
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
                 </svg>
             </div>
-            <p id="user-name" class="text-white font-semibold transition-opacity duration-300 truncate">{{ Auth::user()->name }}</p>
+            <p id="user-name" class="text-white font-semibold transition-opacity duration-300 truncate sidebar-text">{{ Auth::user()->name }}</p>
         </div>
         
         @if(session('error'))
@@ -31,12 +31,6 @@
                 {{ session('error') }}
             </div>
         @endif
-
-        {{-- @if(session('success'))
-            <div class="bg-green-900/50 border border-green-700 text-green-300 px-3 py-2 rounded-lg text-xs mb-4">
-                {{ session('success') }}
-            </div>
-        @endif --}}
 
         @if($errors->any())
             @foreach($errors->all() as $error)
@@ -47,7 +41,7 @@
         @endif
 
         @if (Auth::user()->balance)
-            <div id="balance-card" class="bg-gradient-to-br from-gray-700 to-gray-750 backdrop-blur-sm rounded-lg p-4 border border-gray-600 transition-all duration-300 shadow-lg">
+            <div id="balance-card" class="bg-gradient-to-br from-gray-700 to-gray-750 backdrop-blur-sm rounded-lg p-4 border border-gray-600 transition-all duration-300 shadow-lg sidebar-card">
                 <div class="flex items-center justify-between mb-2">
                     <p class="text-xs text-green-400 font-semibold uppercase tracking-wide">Balance</p>
                     <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -72,7 +66,7 @@
                 </div>
             </div>
         @else
-            <div id="balance-card" class="bg-gradient-to-br from-gray-700 to-gray-750 backdrop-blur-sm rounded-lg p-4 border border-gray-600 transition-all duration-300 shadow-lg">
+            <div id="balance-card" class="bg-gradient-to-br from-gray-700 to-gray-750 backdrop-blur-sm rounded-lg p-4 border border-gray-600 transition-all duration-300 shadow-lg sidebar-card">
                 <div class="flex items-center justify-between mb-2">
                     <p class="text-xs text-orange-400 font-semibold uppercase tracking-wide">Balance</p>
                     <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
@@ -98,7 +92,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
             </div>
-            <span id="nav-text-1" class="transition-all duration-300 text-sm whitespace-nowrap">Expenses</span>
+            <span class="transition-all duration-300 text-sm whitespace-nowrap sidebar-text">Expenses</span>
         </a>
 
         <a href="{{ route('recurring.expenses.index') }}" 
@@ -108,7 +102,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                 </svg>
             </div>
-            <span id="nav-text-2" class="transition-all duration-300 text-sm whitespace-nowrap">Recurring Expenses</span>
+            <span class="transition-all duration-300 text-sm whitespace-nowrap sidebar-text">Recurring Expenses</span>
         </a>
 
         <a href="{{ route('recurring.balances.index') }}" 
@@ -118,7 +112,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                 </svg>
             </div>
-            <span id="nav-text-3" class="transition-all duration-300 text-sm whitespace-nowrap">Recurring Income</span>
+            <span class="transition-all duration-300 text-sm whitespace-nowrap sidebar-text">Recurring Income</span>
         </a>
 
         <a href="{{ route('cards.index') }}" 
@@ -128,7 +122,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
                 </svg>
             </div>
-            <span id="nav-text-4" class="transition-all duration-300 text-sm whitespace-nowrap">Cards</span>
+            <span class="transition-all duration-300 text-sm whitespace-nowrap sidebar-text">Cards</span>
         </a>
     </div>
 
@@ -139,7 +133,7 @@
                 <svg class="w-5 h-5 flex-shrink-0 group-hover:rotate-12 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                 </svg>
-                <span id="logout-text" class="transition-all duration-300 text-sm font-semibold">Logout</span>
+                <span class="transition-all duration-300 text-sm font-semibold sidebar-text">Logout</span>
             </button>
         </form>
     </div>
@@ -150,66 +144,45 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const sidebar = document.getElementById('sidebar');
     const sidebarContainer = document.getElementById('sidebar-container');
     const toggleBtn = document.getElementById('sidebar-toggle');
-    const logoText = document.getElementById('logo-text');
-    const userName = document.getElementById('user-name');
-    const balanceCard = document.getElementById('balance-card');
-    const logoutText = document.getElementById('logout-text');
-    const navTexts = [
-        document.getElementById('nav-text-1'),
-        document.getElementById('nav-text-2'),
-        document.getElementById('nav-text-3'),
-        document.getElementById('nav-text-4'),
-    ];
     
-    let isCollapsed = false;
+    let isCollapsed = localStorage.getItem('sidebarState') === 'compact';
+    
+    updateToggleIcon();
     
     toggleBtn.addEventListener('click', function() {
         if (isCollapsed) {
-            sidebarContainer.classList.remove('w-24');
-            sidebarContainer.classList.add('w-72');
-            
-            setTimeout(() => {
-                logoText.classList.remove('hidden');
-                userName.classList.remove('hidden');
-                balanceCard.classList.remove('hidden');
-                logoutText.classList.remove('hidden');
-                navTexts.forEach(text => {
-                    if (text) text.classList.remove('hidden');
-                });
-            }, 150);
-            
-            toggleBtn.innerHTML = `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
-                </svg>
-            `;
-            
-            isCollapsed = false;
+            expandSideBar();
         } else {
-            logoText.classList.add('hidden');
-            userName.classList.add('hidden');
-            balanceCard.classList.add('hidden');
-            logoutText.classList.add('hidden');
-            navTexts.forEach(text => {
-                if (text) text.classList.add('hidden');
-            });
-            
-            setTimeout(() => {
-                sidebarContainer.classList.remove('w-72');
-                sidebarContainer.classList.add('w-24');
-            }, 100);
-            
-            toggleBtn.innerHTML = `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
-                </svg>
-            `;
-            
-            isCollapsed = true;
+            collapseSideBar();
         }
     });
+
+    function expandSideBar() {
+        document.documentElement.classList.remove('sidebar-compact');
+        localStorage.setItem('sidebarState', 'expanded');
+        isCollapsed = false;
+        updateToggleIcon();
+    }
+
+    function collapseSideBar() {
+        document.documentElement.classList.add('sidebar-compact');
+        localStorage.setItem('sidebarState', 'compact');
+        isCollapsed = true;
+        updateToggleIcon();
+    }
+
+    function updateToggleIcon() {
+        toggleBtn.innerHTML = isCollapsed ? `
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+            </svg>
+        ` : `
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
+            </svg>
+        `;
+    }
 });
 </script>

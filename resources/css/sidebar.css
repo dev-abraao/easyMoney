@@ -1,0 +1,15 @@
+            .sidebar-compact .sidebar-text {
+                display: none !important;
+            }
+            
+            .sidebar-compact .sidebar-card {
+                display: none !important;
+            }
+            
+            .sidebar-compact #sidebar-container {
+                width: 6rem !important;
+            }
+            
+            #sidebar-container {
+                width: 18rem;
+            }

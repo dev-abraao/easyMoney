@@ -9,12 +9,20 @@
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
         <title>{{  $title ?? config('app.name') }}</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/sidebar.css'])
 
+        <script>
+        (function() {
+            const savedState = localStorage.getItem('sidebarState');
+            if (savedState === 'compact') {
+                document.documentElement.classList.add('sidebar-compact');
+            }
+        })();
+        </script>
     </head>
     <body class="bg-gray-900 text-white font-lato">
         <div class="flex min-h-screen">
-            <div id="sidebar-container" class="flex-shrink-0 w-72 transition-all duration-300">
+            <div id="sidebar-container" class="flex-shrink-0 transition-all duration-300">
                 <x-sidebar/>
             </div>
             <div id="main-content" class="flex-1 overflow-auto">
