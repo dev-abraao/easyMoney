@@ -1,5 +1,4 @@
 <div id="sidebar" class="bg-gray-800 text-white shadow-lg w-full h-screen flex flex-col sticky top-0 transition-all duration-300 border-r border-gray-700">
-    <!-- Logo Section with Toggle Button -->
     <div class="p-6 border-b border-gray-700 flex items-center justify-between">
         <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 overflow-hidden">
             <div class="bg-gradient-to-r from-green-400 to-green-600 p-2 rounded-lg flex-shrink-0">
@@ -17,7 +16,6 @@
         </button>
     </div>
 
-    <!-- User Profile Section -->
     <div class="p-6 border-b border-gray-700">
         <div class="flex items-center space-x-3 mb-4">
             <div class="bg-gradient-to-r from-green-400 to-green-600 p-2.5 rounded-full flex-shrink-0">
@@ -34,11 +32,11 @@
             </div>
         @endif
 
-        @if(session('success'))
+        {{-- @if(session('success'))
             <div class="bg-green-900/50 border border-green-700 text-green-300 px-3 py-2 rounded-lg text-xs mb-4">
                 {{ session('success') }}
             </div>
-        @endif
+        @endif --}}
 
         @if($errors->any())
             @foreach($errors->all() as $error)
@@ -48,7 +46,6 @@
             @endforeach
         @endif
 
-        <!-- Balance Card with Action Buttons -->
         @if (Auth::user()->balance)
             <div id="balance-card" class="bg-gradient-to-br from-gray-700 to-gray-750 backdrop-blur-sm rounded-lg p-4 border border-gray-600 transition-all duration-300 shadow-lg">
                 <div class="flex items-center justify-between mb-2">
@@ -57,7 +54,6 @@
                 </div>
                 <p class="text-2xl font-bold text-white mb-4" id="balance-amount">${{ number_format(Auth::user()->balance->balance_amount, 2) }}</p>
                 
-                <!-- Action Buttons -->
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="openPaymentModal()" 
                             class="group bg-green-600 hover:bg-green-700 text-white py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center space-x-1.5 hover:scale-105 active:scale-95">
@@ -83,7 +79,6 @@
                 </div>
                 <p class="text-2xl font-bold text-white mb-4" id="balance-amount">$0.00</p>
                 
-                <!-- Action Button to Create Balance -->
                 <button onclick="alert('Create your balance first!')" 
                         class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105 active:scale-95">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,7 +90,6 @@
         @endif
     </div>
     
-    <!-- Navigation Links -->
     <div class="flex flex-col gap-1 font-semibold flex-1 p-4">
         <a href="{{ route('user-expense.index') }}" 
            class="text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-3 rounded-lg transition-all duration-200 flex items-center justify-start gap-3 group">
@@ -138,7 +132,6 @@
         </a>
     </div>
 
-    <!-- Logout Section -->
     <div class="p-4 border-t border-gray-700">
         <form action="{{ route('logout') }}" method="POST">
             @csrf
@@ -152,7 +145,6 @@
     </div>
 </div>
 
-<!-- Modals -->
 <x-create-expense-modal/>
 <x-create-payment-modal/>
 
@@ -176,11 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     toggleBtn.addEventListener('click', function() {
         if (isCollapsed) {
-            // Expand sidebar
             sidebarContainer.classList.remove('w-24');
             sidebarContainer.classList.add('w-72');
             
-            // Show text elements
             setTimeout(() => {
                 logoText.classList.remove('hidden');
                 userName.classList.remove('hidden');
@@ -191,7 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }, 150);
             
-            // Rotate toggle icon
             toggleBtn.innerHTML = `
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
@@ -200,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             isCollapsed = false;
         } else {
-            // Collapse sidebar
             logoText.classList.add('hidden');
             userName.classList.add('hidden');
             balanceCard.classList.add('hidden');
@@ -214,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 sidebarContainer.classList.add('w-24');
             }, 100);
             
-            // Rotate toggle icon
             toggleBtn.innerHTML = `
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
