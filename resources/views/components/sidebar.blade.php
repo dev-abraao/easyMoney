@@ -56,18 +56,18 @@
                 
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="openPaymentModal()" 
-                            class="group bg-green-600 hover:bg-green-700 text-white py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center space-x-1.5 hover:scale-105 active:scale-95">
+                            class="group bg-green-500 hover:bg-green-600 text-white py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center space-x-1.5 hover:scale-105 active:scale-95">
                         <svg class="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
                         </svg>
-                        <span class="text-xs font-semibold">Income</span>
+                        <span class="text-xs font-black">Income</span>
                     </button>
                     <button onclick="openExpenseModal()" 
-                            class="group bg-red-600 hover:bg-red-700 text-white py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center space-x-1.5 hover:scale-105 active:scale-95">
+                            class="group bg-purple-600 hover:bg-purple-700 text-white py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center space-x-1.5 hover:scale-105 active:scale-95">
                         <svg class="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"></path>
                         </svg>
-                        <span class="text-xs font-semibold">Expense</span>
+                        <span class="text-xs font-black">Expense</span>
                     </button>
                 </div>
             </div>
