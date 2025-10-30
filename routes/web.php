@@ -23,10 +23,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/user-balance', [UserBalanceController::class, 'store'])->name('user.balance.store');
 Route::put('/user-balance', [UserBalanceController::class, 'update'])->name('user.balance.update');
 
-Route::resource('user-expense', UserExpenseController::class)->only(['store', 'destroy']);
+Route::resource('expenses', UserExpenseController::class)->names('user-expense')->only(['index', 'store', 'destroy']);
 
 Route::resource('recurring/expenses', RecurringExpenseController::class)->names('recurring.expenses')->only(['index', 'store']);
 
 Route::resource('recurring/balances', RecurringBalanceController::class)->names('recurring.balances')->only(['index', 'store']);
 
-Route::resource('cards', CardController::class)->names('cards')->only(['index', 'store']);
+Route::resource('cards', CardController::class)->names('cards')->only(['index', 'store', 'show', 'destroy']);

@@ -34,7 +34,7 @@ class Card extends Model
     }
 
         // Accessor that returns all expenses (regular and recurring)
-    public function getAllExpensesAttribute()
+    public function getAllExpenses()
     {
     $expenses = $this->relationLoaded('expenses') 
         ? $this->expenses 

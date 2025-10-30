@@ -59,8 +59,34 @@ class CardController extends Controller
      * Display the specified resource.
      */
     public function show(Card $card)
-    {
-        //
+{
+        if ($card->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $regularExpenses = $card->expenses()
+            ->with(['type', 'info'])
+            ->orderBy('date', 'desc')
+            ->get();
+
+        $recurringExpenses = $card->recurringExpenses()
+            ->orderBy('next_due_date', 'desc')
+            ->get();
+
+        $totalSpent = $regularExpenses->sum('amount') + $recurringExpenses->sum('rec_ex_amount');
+        $totalRecurring = $recurringExpenses->sum('rec_ex_amount');
+        $remainingLimit = $card->limit - $totalSpent;
+        $utilizationPercentage = $card->limit > 0 ? ($totalSpent / $card->limit) * 100 : 0;
+
+        return view('cards.show', [
+            'card' => $card,
+            'regularExpenses' => $regularExpenses,
+            'recurringExpenses' => $recurringExpenses,
+            'totalSpent' => $totalSpent,
+            'totalRecurring' => $totalRecurring,
+            'remainingLimit' => $remainingLimit,
+            'utilizationPercentage' => $utilizationPercentage,
+        ]);
     }
 
     /**

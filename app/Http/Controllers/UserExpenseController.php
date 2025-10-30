@@ -19,7 +19,55 @@ class UserExpenseController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        
+        // Pegar despesas do mês atual
+        $startOfMonth = now()->startOfMonth();
+        $endOfMonth = now()->endOfMonth();
+        
+        // Despesas regulares (todas e do mês)
+        $allExpenses = $user->expenses()
+            ->with(['type', 'card', 'info'])
+            ->orderBy('date', 'desc')
+            ->get();
+            
+        $monthExpenses = $user->expenses()
+            ->with(['type', 'card', 'info'])
+            ->whereBetween('date', [$startOfMonth, $endOfMonth])
+            ->orderBy('date', 'desc')
+            ->get();
+        
+        // Separar despesas por tipo de pagamento
+        $cashExpenses = $allExpenses->whereNull('card_id');
+        $cardExpenses = $allExpenses->whereNotNull('card_id');
+        
+        // Calcular estatísticas do mês
+        $totalMonthExpenses = $monthExpenses->sum('amount');
+        $totalMonthCash = $monthExpenses->whereNull('card_id')->sum('amount');
+        $totalMonthCard = $monthExpenses->whereNotNull('card_id')->sum('amount');
+        
+        // Estatísticas gerais
+        $totalExpenses = $allExpenses->sum('amount');
+        $totalCashExpenses = $cashExpenses->sum('amount');
+        $totalCardExpenses = $cardExpenses->sum('amount');
+        
+        // Despesas com parcelas ativas
+        $activeInstallments = $allExpenses->filter(function($expense) {
+            return $expense->info && !$expense->info->is_completed;
+        });
+        
+        return view('expenses.index', [
+            'cashExpenses' => $cashExpenses,
+            'cardExpenses' => $cardExpenses,
+            'totalMonthExpenses' => $totalMonthExpenses,
+            'totalMonthCash' => $totalMonthCash,
+            'totalMonthCard' => $totalMonthCard,
+            'totalExpenses' => $totalExpenses,
+            'totalCashExpenses' => $totalCashExpenses,
+            'totalCardExpenses' => $totalCardExpenses,
+            'activeInstallments' => $activeInstallments,
+            'currentMonth' => now()->format('F Y'),
+        ]);
     }
 
     /**

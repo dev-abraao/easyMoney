@@ -90,19 +90,25 @@
             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
             </svg>
-            <span id="nav-text-1" class="transition-opacity duration-300">Expenses</span>
+            <span id="nav-text-1" class="transition-opacity duration-300">Recurring Expenses</span>
         </a>
         <a href="{{ route('recurring.balances.index') }}" class="text-gray-300 hover:text-green-400 hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200 flex items-center space-x-3">
             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
             </svg>
-            <span id="nav-text-2" class="transition-opacity duration-300">Payments</span>
+            <span id="nav-text-3" class="transition-opacity duration-300">Recurring Payments</span>
+        </a>
+        <a href="{{ route('user-expense.index') }}" class="text-gray-300 hover:text-green-400 hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200 flex items-center space-x-3">
+            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+            </svg>
+            <span id="nav-text-2" class="transition-opacity duration-300">Expenses</span>
         </a>
         <a href="{{ route('cards.index') }}" class="text-gray-300 hover:text-green-400 hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200 flex items-center space-x-3">
             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
             </svg>
-            <span id="nav-text-3" class="transition-opacity duration-300">Cards</span>
+            <span id="nav-text-4" class="transition-opacity duration-300">Cards</span>
         </a>
     </div>
 
@@ -136,7 +142,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const navTexts = [
         document.getElementById('nav-text-1'),
         document.getElementById('nav-text-2'),
-        document.getElementById('nav-text-3')
+        document.getElementById('nav-text-3'),
+        document.getElementById('nav-text-4'),
+
     ];
     
     let isCollapsed = false;
