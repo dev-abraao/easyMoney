@@ -110,6 +110,16 @@ class CardController extends Controller
      */
     public function destroy(Card $card)
     {
-        //
+        if ($card->user_id !== auth()->id()) {
+            return redirect()->back()->with('error', 'Unauthorized action.');
+        }
+
+        try {
+            $card->delete();
+        } catch (Throwable $e) {
+            return redirect()->route('cards.index')->with('error', 'An error occurred while deleting the card.');
+        }
+
+        return redirect()->route('cards.index')->with('success', 'Card deleted successfully.');
     }
 }

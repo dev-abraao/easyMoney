@@ -41,4 +41,18 @@ class RecurringExpenseController extends Controller
         }
 
     }
+
+    public function destroy(RecurringExpense $expense){
+        if ($expense->user_id !== auth()->id()) {
+            return redirect()->back()->with('error', 'Unauthorized action.');
+        }
+
+        try {
+            $expense->delete();
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error', 'Failed to delete recurring expense: ' . $e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Recurring expense deleted successfully!');
+    }
 }

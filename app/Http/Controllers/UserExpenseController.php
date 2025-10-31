@@ -186,20 +186,20 @@ class UserExpenseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserExpense $userExpense)
+    public function destroy(UserExpense $expense)
     {
 
-        if (auth()->id() !== $userExpense->user_id) {
-            abort(403, 'Unauthorized action.');
+        if (auth()->id() !== $expense->user_id) {
+            return redirect()->back()->with('error', 'Unauthorized action.');
         }
 
         try {
             $userBalance = auth()->user()->balance;
 
-            DB::transaction(function () use ($userBalance, $userExpense) {
-                $userBalance->balance_amount += $userExpense->amount;
+            DB::transaction(function () use ($userBalance, $expense) {
+                $userBalance->balance_amount += $expense->amount;
                 $userBalance->save();
-                $userExpense->delete();
+                $expense->delete();
 
             });
             return redirect()->back()->with('success', 'Expense deleted successfully.');

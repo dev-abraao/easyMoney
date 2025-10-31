@@ -83,4 +83,28 @@ class UserBalanceController extends Controller
             return redirect()->back()->with('error', 'Something went wrong.')->withInput();
         }
     }
+
+    public function destroy(UserPayment $user_balance)
+    {
+
+        if (auth()->id() !== $user_balance->user_id) {
+            return redirect()->back()->with('error', 'Unauthorized action.');
+        }
+
+        try {
+            $userBalance = auth()->user()->balance;
+
+            DB::transaction(function () use ($userBalance, $user_balance) {
+                $userBalance->balance_amount -= $user_balance->payment_amount;
+                $userBalance->save();
+                $user_balance->delete();
+
+            });
+            return redirect()->back()->with('success', 'Payment deleted successfully.');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error', 'Something went wrong. Please try again later.');
+        }
+
+
+    }
 }

@@ -42,4 +42,18 @@ class RecurringBalanceController extends Controller
         }
 
     }
+
+    public function destroy(RecurringBalance $balance){
+        if ($balance->user_id !== auth()->id()) {
+            return redirect()->back()->with('error', 'Unauthorized action.');
+        }
+
+        try {
+            $balance->delete();
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error', 'Failed to delete recurring balance: ' . $e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Recurring balance deleted successfully!');
+    }
 }

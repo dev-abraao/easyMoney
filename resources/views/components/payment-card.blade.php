@@ -10,7 +10,7 @@
         <p class="font-bold text-green-500 text-lg">${{ number_format($payment->payment_amount, 2) }}</p>
     </div>
     <div class="flex flex-col items-center ml-4">
-        {{-- <form action="{{ route('user.payment.destroy', $payment) }}" method="POST" class="flex items-center"> --}}
+        <form action="{{ route('user.balance.destroy', $payment) }}" method="POST" class="flex items-center">
         <form action="" method="POST" class="flex items-center">
             @csrf
             @method('DELETE')

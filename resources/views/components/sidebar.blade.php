@@ -1,6 +1,6 @@
 <div id="sidebar" class="bg-gray-800 text-white shadow-lg w-full h-screen flex flex-col sticky top-0 border-r border-gray-700">
     <div class="p-6 border-b border-gray-700 flex items-center justify-between">
-        <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 overflow-hidden">
+        <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 overflow-hidden sidebar-text">
             <div class="bg-gradient-to-r from-green-400 to-green-600 p-2 rounded-lg flex-shrink-0">
                 <svg class="w-6 h-6 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path>
@@ -9,7 +9,7 @@
             </div>
             <h1 id="logo-text" class="text-xl font-bold text-white transition-opacity duration-300 font-oswald whitespace-nowrap sidebar-text">EasyMoney</h1>
         </a>
-        <button id="sidebar-toggle" class="text-gray-400 hover:text-green-400 transition-colors duration-200 p-2 hover:bg-gray-700 rounded-lg flex-shrink-0">
+        <button id="sidebar-toggle" class="text-gray-400 hover:text-green-400 transition-colors duration-200 p-2 ml-2 hover:bg-gray-700 rounded-lg flex-shrink-0">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
             </svg>
